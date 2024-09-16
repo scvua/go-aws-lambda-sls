@@ -14,11 +14,19 @@ package:
     - '!./**'
     - ./bin/**
 
+plugins:
+  - serverless-go-plugin
+
+custom:
+  go:
+    cmd: 'GOOS=linux go build -tags lambda.norpc'
+    monorepo: true
+    supportedRuntimes: ["provided.al2023"]
+    buildProvidedRuntimeAsBootstrap: true
+
 functions:
   hello:
-    handler: bootstrap # The binary file ./bin/hello/bootstrap
-    package:
-      artifact: bin/hello.zip
+    handler: hello/main.go # The source code file ./hello/main.go
     events:
       - httpApi:
           method: GET
