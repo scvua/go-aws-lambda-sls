@@ -6,7 +6,8 @@ provider:
   name: aws
   region: eu-central-1
   runtime: provided.al2023
-  architecture: x86_64
+  memorySize: 128
+  architecture: arm64
 
 package:
   individually: true # Package each function as an individual artifact
@@ -19,7 +20,7 @@ plugins:
 
 custom:
   go:
-    cmd: 'GOOS=linux go build -tags lambda.norpc'
+    cmd: 'GOARCH=arm64 GOOS=linux go build -tags lambda.norpc'
     monorepo: true
     supportedRuntimes: ["provided.al2023"]
     buildProvidedRuntimeAsBootstrap: true
