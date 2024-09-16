@@ -25,7 +25,7 @@ zip: build
 .PHONY: zip
 
 clean:
-	rm -rf ./bin
+	rm -rf ./bin ./.bin
 .PHONY: clean
 
 deploy: clean zip
