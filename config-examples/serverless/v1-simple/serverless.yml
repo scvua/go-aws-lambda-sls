@@ -1,0 +1,24 @@
+# Configuration for a simple lambda function deployment.
+org: scvua
+app: sls-go-test-app
+service: sls-go-test-service
+
+provider:
+  name: aws
+  region: eu-central-1
+  runtime: provided.al2023
+  architecture: x86_64
+
+package:
+  individually: true # Package each function as an individual artifact
+  patterns:
+    - '!./**'
+    - ./bin/**
+
+functions:
+  hello:
+    handler: bootstrap # The binary file ./bin/hello/bootstrap
+    package:
+      artifact: bin/hello.zip
+    events:
+      - httpApi: '*'

@@ -37,5 +37,3 @@ atlassian-ide-plugin.xml
 .bin/
 .serverless/
 .dynamodb/
-serverless*
-!serverless.yml

@@ -1,0 +1,38 @@
+# Configuration for the serverless-go-plugin use.
+org: scvua
+app: sls-go-test-app
+service: sls-go-test-service
+
+provider:
+  name: aws
+  region: eu-central-1
+  runtime: provided.al2023
+  memorySize: 128
+  architecture: x86_64
+  # architecture: arm64 for Graviton2 processor architecture
+
+package:
+  individually: true # Package each function as an individual artifact
+  patterns:
+    - '!./**'
+    - ./bin/**
+
+plugins:
+  - serverless-go-plugin
+
+custom:
+  go:
+    # For deployment via arm64 use
+    # cmd: 'GOARCH=arm64 GOOS=linux go build -tags lambda.norpc'
+    cmd: 'GOOS=linux go build -tags lambda.norpc'
+    monorepo: true
+    supportedRuntimes: ["provided.al2023"]
+    buildProvidedRuntimeAsBootstrap: true
+
+functions:
+  hello:
+    handler: hello/main.go # The source code file ./hello/main.go
+    events:
+      - httpApi:
+          method: GET
+          path: /hello
