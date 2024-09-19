@@ -1,4 +1,4 @@
-.DEFAULT_GOAL := build
+.DEFAULT_GOAL := deploy
 
 fmt:
 	go fmt ./...
@@ -8,26 +8,15 @@ lint: fmt
 	golangci-lint run
 .PHONY: lint
 
-vet: fmt
+verify: fmt
 	go vet ./...
-.PHONY: vet
-
-verify: vet
 	go mod verify
 .PHONY: verify
 
-build: verify
-	GOARCH=amd64 GOOS=linux go build -tags lambda.norpc -o bin/hello/bootstrap hello/main.go
-.PHONY: build
-
-zip: build
-	zip bin/hello.zip -j bin/hello/bootstrap
-.PHONY: zip
-
 clean:
-	rm -rf ./bin ./.bin
+	rm -rf ./.bin
 .PHONY: clean
 
-deploy: clean zip
+deploy: verify clean
 	sls deploy --verbose
 .PHONY: deploy

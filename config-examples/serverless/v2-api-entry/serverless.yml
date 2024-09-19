@@ -1,4 +1,4 @@
-# Cofiguration for a simple API entry deployment.
+# Configuration for a simple API entry deployment.
 org: scvua
 app: sls-go-test-app
 service: sls-go-test-service

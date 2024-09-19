@@ -10,7 +10,7 @@ import (
 	"github.com/aws/aws-lambda-go/lambda"
 )
 
-type Response events.APIGatewayProxyResponse
+type Response events.APIGatewayV2HTTPResponse
 
 func Handler(ctx context.Context) (Response, error) {
 	var buf bytes.Buffer

@@ -13,7 +13,7 @@ package:
   individually: true # Package each function as an individual artifact
   patterns:
     - '!./**'
-    - ./bin/**
+    - ./.bin/**
 
 plugins:
   - serverless-go-plugin
